@@ -4,15 +4,17 @@
 			<AppSearch/>
 			<div class="list__content-card">
 				<AppList 
-					v-for="item in list" 
-					:key="item.id"
+					v-for="(item, index) in showList" 
+					:key="item.name"
 					:detail="item"
 					class="mb-10"
+					@click-detail="saveFavorite(index)"
 				/>
 			</div>
 			<div class="list__content-options">
 				<AppButton 
 					title="All"
+					@click-btn="goToAll"
 				>
 					<img 
 						src="../assets/icons/all.svg" 
@@ -22,6 +24,8 @@
 				<AppButton 
 					title="Favorites"
 					class="list__btn-right"
+					:disabled="favorites.length === 0"
+					@click-btn="goToFavorites"
 				>
 					<img 
 						src="../assets/icons/start.svg" 
@@ -43,6 +47,36 @@ function created() {
 	this.$store.dispatch('getListPok');
 }
 
+function saveFavorite(index) {
+	if (this.$route.name === 'ListFavorite') {
+		this.$store.dispatch('getPokDeleteFavorite', index);
+	} else {
+		this.$store.dispatch('getPokFavorite', index);
+	}
+}
+
+function showList() {
+	return this.$route.name === 'ListFavorite' ? this.favorites : this.list;
+}
+
+function goToFavorites() {
+	this.$router.push({
+		name: 'ListFavorite'
+	});
+}
+
+function goToAll() {
+	this.$router.push({
+		name: 'List'
+	});
+}
+
+function changeShow(values) {
+	if (this.$route.name === 'ListFavorite' && values.length === 0) {
+		this.goToAll();
+	}
+}
+
 export default {
   components: { AppSearch, AppButton, AppList },
 	name: 'List',
@@ -50,7 +84,17 @@ export default {
 	computed: {
 		...mapGetters([
 			'list',
+			'favorites',
 		]),
+		showList,
+	},
+	methods: {
+		saveFavorite,
+		goToFavorites,
+		goToAll,
+	},
+	watch: {
+		showList: changeShow,
 	},
 };
 </script>

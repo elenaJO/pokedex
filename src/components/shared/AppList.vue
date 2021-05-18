@@ -1,9 +1,14 @@
 <template>
 	<div class="app-list">
 		<span class="app-list__text">{{ detail ? detail.name : '' }}</span>
-		<div class="app-list__content-start">
-			<AppStart color="#BFBFBF"/>
-		</div>
+		<button 
+			class="app-list__content-start"
+			@click="$emit('click-detail')"
+		>
+			<AppStart 
+				:color="detail.favorite ? '#ECA539' : '#BFBFBF'"
+			/>
+		</button>
 	</div>
 </template>
 <script>
@@ -34,7 +39,9 @@ export default {
 		&__content-start {
 			@include flex-center();
 			background-color: $light-white;
+			border: none;
 			@include border-radius(50%);
+			cursor: pointer;
 			height: 44px;
 			width: 44px;
 		}

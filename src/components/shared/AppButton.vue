@@ -2,6 +2,7 @@
 	<button 
 		:disabled="disabled"
 		class="app-button"
+		@click="$emit('click-btn')"
 	>
 		<slot></slot>
 		<span class="app-button__text">{{ title }}</span>
