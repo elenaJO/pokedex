@@ -3,7 +3,12 @@
 		<div class="list">
 			<AppSearch/>
 			<div class="list__content-card">
-				<AppList/>
+				<AppList 
+					v-for="item in list" 
+					:key="item.id"
+					:detail="item"
+					class="mb-10"
+				/>
 			</div>
 			<div class="list__content-options">
 				<AppButton 
@@ -32,10 +37,21 @@
 import AppButton from '../components/shared/AppButton.vue';
 import AppList from '../components/shared/AppList.vue';
 import AppSearch from '../components/shared/AppSearch.vue';
+import { mapGetters } from 'vuex';
+
+function created() {
+	this.$store.dispatch('getListPok');
+}
 
 export default {
   components: { AppSearch, AppButton, AppList },
 	name: 'List',
+	created,
+	computed: {
+		...mapGetters([
+			'list',
+		]),
+	},
 };
 </script>
 <style lang="scss" scoped>
@@ -45,7 +61,7 @@ export default {
 		padding: 35px 32px;
 
 		&__content-card {
-			margin-top: 40px;
+			margin: 40px 0 70px 0;
 		}
 
 		&__content-options {

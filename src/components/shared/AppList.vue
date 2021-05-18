@@ -1,6 +1,6 @@
 <template>
 	<div class="app-list">
-		<span class="app-list__text">Pokémon #1</span>
+		<span class="app-list__text">{{ detail ? detail.name : '' }}</span>
 		<div class="app-list__content-start">
 			<AppStart color="#BFBFBF"/>
 		</div>
@@ -13,6 +13,12 @@ export default {
 	name: 'app-list',
 	components: {
 		AppStart,
+	},
+	props: {
+		detail: {
+			types: Object,
+			default: () => {},
+		},
 	},
 }
 </script>
