@@ -2,29 +2,35 @@
   <div class="detail">
 		<div class="detail__modal">
 			<div class="detail__content-image">
-				<button class="detail__btn">
+				<button class="detail__btn" @click="goToBack">
 					<img src="../assets/icons/check.svg" alt="cerrar">
 				</button>
+				<img 
+					:src="detail.image" 
+					:alt="detail.name"
+					width="106px"
+					class="detail__image"
+				>
 			</div>
 			<div class="detail__content-information">
 				<div>
 					<p class="detail__text">
-						<span class="detail__text--bold">Name:</span>Squirtle
+						<span class="detail__text--bold">Name:</span> {{ detail ? detail.name : ''}}
 					</p>
 					<p class="detail__text">
-						<span class="detail__text--bold">Name:</span>Squirtle
+						<span class="detail__text--bold">Weight:</span> {{ detail ? detail.weight : ''}}
 					</p>
 					<p class="detail__text">
-						<span class="detail__text--bold">Name:</span>Squirtle
+						<span class="detail__text--bold">Height:</span> {{ detail ? detail.height : ''}}
 					</p>
 					<p class="detail__text">
-						<span class="detail__text--bold">Name:</span>Squirtle
+						<span class="detail__text--bold">Types:</span> {{ detail ? detail.name : ''}}
 					</p>
 				</div>
 			</div>
 			<div class="detail__content-buttons">
 				<AppButton title="Share to my friends"/>
-				<BtnStart/>
+				<BtnStart :active="detail.favorite"/>
 			</div>
 		</div>
 	</div>
@@ -32,10 +38,36 @@
 <script>
 import AppButton from '../components/shared/AppButton.vue';
 import BtnStart from '../components/shared/BtnStart.vue';
+import { mapGetters } from 'vuex';
+
+function created() {
+	const detail = {
+		name: this.name,
+		favorite: this.$route.query.favorite,
+	}
+	this.$store.dispatch('getDetailPok', detail);
+}
+
+function goToBack() {
+	this.$router.go(-1);
+	this.$store.dispatch('resetDetail');
+}
 
 export default {
   components: { AppButton, BtnStart },
 	name: 'detail',
+	created,
+	computed: {
+		...mapGetters([
+			'detail',
+		]),
+	},
+	props: {
+		name: String,
+	},
+	methods: {
+		goToBack,
+	},
 };
 </script>
 <style lang="scss" scoped>
@@ -44,7 +76,7 @@ export default {
 	background-color: rgba(0, 0, 0, 0.6);
 	bottom: 0;
 	left: 0;
-	position: absolute;
+	position: fixed;
 	right: 0;
 	top: 0;
 
@@ -94,6 +126,12 @@ export default {
 		position: absolute;
 		right: 20px;
 		top: 20px;
+	}
+
+	&__image {
+		bottom: 0;
+		position: absolute;
+		right: calc(50% - 53px);
 	}
 }
 </style>

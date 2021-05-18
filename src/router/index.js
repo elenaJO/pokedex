@@ -18,9 +18,10 @@ const routes = [
     component: List,
     children: [
       {
-        path: 'detalle',
+        path: 'detalle/:name',
         name: 'Detail',
         component: Detail,
+        props: true,
       },
     ],
   },
@@ -28,6 +29,14 @@ const routes = [
     path: '/favoritos',
     name: 'ListFavorite',
     component: List,
+    children: [
+      {
+        path: 'detalle/:name',
+        name: 'DetailFavorite',
+        component: Detail,
+        props: true,
+      },
+    ],
   },
 ]
 

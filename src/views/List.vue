@@ -9,6 +9,7 @@
 					:detail="item"
 					class="mb-10"
 					@click-detail="saveFavorite(index)"
+					@click-list="showDetail"
 				/>
 			</div>
 			<div class="list__content-options">
@@ -77,6 +78,18 @@ function changeShow(values) {
 	}
 }
 
+function showDetail(detail) {
+	this.$router.push({
+		name: this.$route.name === 'ListFavorite' ? 'DetailFavorite' : 'Detail',
+		params: {
+			name: detail.name,
+		},
+		query: {
+			favorite: detail.favorite,
+		},
+	});
+}
+
 export default {
   components: { AppSearch, AppButton, AppList },
 	name: 'List',
@@ -92,6 +105,7 @@ export default {
 		saveFavorite,
 		goToFavorites,
 		goToAll,
+		showDetail,
 	},
 	watch: {
 		showList: changeShow,

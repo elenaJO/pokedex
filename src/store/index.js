@@ -8,6 +8,7 @@ const store = new Vuex.Store(
 		state: {
 			list: [],
 			favorites: [],
+			detail: {},
 		},
 		getters: {
 			list(state) {
@@ -15,6 +16,9 @@ const store = new Vuex.Store(
 			},
 			favorites(state) {
 				return state.favorites
+			},
+			detail(state) {
+				return state.detail
 			},
 		},
 		actions: {
@@ -30,6 +34,15 @@ const store = new Vuex.Store(
 			getPokDeleteFavorite(context, index) {
 				context.commit('setPokDeleteFav', index);
 			},
+			async getDetailPok(context, { name, favorite }) {
+				const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+				const resp = await fetch(url);
+				const data = await resp.json();
+				context.commit('setDetailPok', { data, favorite });
+			},
+			resetDetail(context) {
+				context.commit('setResetDetail');
+			}
 		},
 		mutations: {
 			setList(state, items) {
@@ -54,6 +67,14 @@ const store = new Vuex.Store(
 				state.favorites.splice(index, 1);
 				const indexD = state.list.findIndex(f => f.name === namePok);
 				state.list[indexD].favorite = !state.list[indexD].favorite;
+			},
+			setDetailPok(state, { data, favorite }) {
+				state.detail = { ... data };
+				state.detail.favorite = Boolean(favorite);
+				state.detail.image = data.sprites.front_default;
+			},
+			setResetDetail(state) {
+				state.detail = {};
 			}
 		}
 	},

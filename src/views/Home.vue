@@ -14,7 +14,10 @@
       in the Pokémon world.
     </p>
     <div class="home__content-btn">
-      <AppButton title="Get started"/>
+      <AppButton 
+        title="Get started"
+        @click-btn="goToHome"
+      />
     </div>
   </div>
 </template>
@@ -22,9 +25,18 @@
 <script>
 import AppButton from '../components/shared/AppButton'
 
+function goToHome() {
+  this.$router.push({
+		name: 'List'
+	});
+}
+
 export default {
   components: { AppButton },
   name: 'Home',
+  methods: {
+    goToHome,
+  },
 }
 </script>
 <style lang="scss" scoped>
