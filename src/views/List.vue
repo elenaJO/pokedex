@@ -1,28 +1,31 @@
 <template>
-  <div class="list">
-		<AppSearch/>
-		<div class="list__content-card">
-			<AppList/>
-		</div>
-		<div class="list__content-options">
-			<AppButton 
-				title="All"
-			>
-				<img 
-					src="../assets/icons/all.svg" 
-					alt="all"
+	<div>
+		<div class="list">
+			<AppSearch/>
+			<div class="list__content-card">
+				<AppList/>
+			</div>
+			<div class="list__content-options">
+				<AppButton 
+					title="All"
 				>
-			</AppButton>
-			<AppButton 
-				title="Favorites"
-				class="list__btn-right"
-			>
-				<img 
-					src="../assets/icons/start.svg" 
-					alt="all"
+					<img 
+						src="../assets/icons/all.svg" 
+						alt="all"
+					>
+				</AppButton>
+				<AppButton 
+					title="Favorites"
+					class="list__btn-right"
 				>
-			</AppButton>
+					<img 
+						src="../assets/icons/start.svg" 
+						alt="all"
+					>
+				</AppButton>
+			</div>
 		</div>
+		<router-view></router-view>
 	</div>
 </template>
 <script>
