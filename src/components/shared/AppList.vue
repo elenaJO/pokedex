@@ -23,7 +23,7 @@ export default {
 		color: $medium-grey;
 		@include border-radius(5px);
 		max-width: 570px;
-		padding: 17px 20px;
+		padding: 8px 20px;
 
 		&__content-start {
 			@include flex-center();
