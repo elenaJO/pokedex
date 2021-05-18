@@ -1,6 +1,10 @@
 <template>
 	<div class="app-list">
-		<span class="app-list__text">{{ detail ? detail.name : '' }}</span>
+		<span
+			@click="$emit('click-list', detail)"
+			class="app-list__text">
+			{{ detail ? detail.name : '' }}
+		</span>
 		<button 
 			class="app-list__content-start"
 			@click="$emit('click-detail')"
@@ -47,6 +51,7 @@ export default {
 		}
 
 		&__text {
+			cursor: pointer;
 			font-size: $medium22;
 		}
 	}
