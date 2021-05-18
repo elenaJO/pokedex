@@ -22,11 +22,14 @@ export default {
 <style lang="scss" scoped>
 
 	.app-button {
+		align-items: center;
 		background-color: $black-red;
 		border: none;
 		@include border-radius(60px);
 		color: $white;
 		cursor: pointer;
+		display: inline-flex;
+		justify-content: center;
 		min-width: 150px;
 		padding: 11px 20px;
 		@include transition(.5s ease-in-out);
