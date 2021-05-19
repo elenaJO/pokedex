@@ -37,6 +37,7 @@ export default {
 		background-color: $white;
 		color: $medium-grey;
 		@include border-radius(5px);
+		margin: 0 auto;
 		max-width: 570px;
 		padding: 8px 20px;
 

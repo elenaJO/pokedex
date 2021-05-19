@@ -22,6 +22,8 @@ export default {
 	.app-search {
 		background-color: $white;
 		@include border-radius(5px);
+		margin: 0 auto;
+		max-width: 570px;
 		padding: 16px 15px;
 
 		&__text {

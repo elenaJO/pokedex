@@ -41,7 +41,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home {
-  padding: 83px 32px;
+  background: $medium-white;
+  padding: 110px 32px;
 
   &__content-image {
     background-image: url('../assets/images/circle.svg');
@@ -79,5 +80,14 @@ export default {
   &__content-btn {
     text-align: center;
   }
+
+  @media (min-width: 768px) {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    padding: 0;
+	}
 }
 </style>

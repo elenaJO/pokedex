@@ -31,9 +31,11 @@ export default {
 		cursor: pointer;
 		display: inline-flex;
 		justify-content: center;
+		max-width: 275px;
 		min-width: 150px;
 		padding: 11px 20px;
 		@include transition(.5s ease-in-out);
+		width: auto;
 
 		&__text {
 			font-weight: 700;
@@ -44,10 +46,22 @@ export default {
 		&:disabled {
 			background-color: $light-grey;
 			cursor: not-allowed;
+
+			&:hover {
+				background-color: $light-grey;
+			}
 		}
 
 		&:hover {
 			background-color: $medium-red;
+		}
+
+		@media (min-width: 768px) {
+			width: 100%;
+		}
+
+		@media (max-width: 374px) {
+			min-width: auto;
 		}
 	}
 </style>

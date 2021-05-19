@@ -1,7 +1,7 @@
 <template>
   <div 
 		class="loading"
-		:class="`${loading ? 'show' : 'notshow'}`"
+		:class="[{ 'modal': modal }]"
 	>
 		<div class="circle-loader">
 			<img src="../../assets/images/loader.svg" alt="loader">
@@ -18,6 +18,12 @@ export default {
 			'loading',
 		]),
 	},
+	props: {
+		modal: {
+			types: Boolean,
+			default: false,
+		},
+	},
 }
 </script>
 <style lang="scss" scoped>
@@ -25,6 +31,10 @@ export default {
 		background-color: $medium-white;
 		@include flex-center();
 		height: calc(100vh - 197px);
+
+		&.modal {
+			height: 100%;
+		}
 	}
 
 	.circle-loader {
