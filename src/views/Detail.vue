@@ -26,13 +26,18 @@
 							<span class="detail__text--bold">Height:</span> {{ detail ? detail.height : ''}}
 						</p>
 						<p class="detail__text">
-							<span class="detail__text--bold">Types:</span> {{ detail ? detail.name : ''}}
+							<span class="detail__text--bold">Types:</span> {{ detail ? detail.typesString : ''}}
 						</p>
 					</div>
 				</div>
 				<div class="detail__content-buttons">
-					<AppButton title="Share to my friends"/>
+					<AppButton 
+						title="Share to my friends"
+						@click-btn="shareFriend"
+					/>
 					<BtnStart :active="detail.favorite"/>
+					<input id="share" type="text" hidden>
+					<span class="detail__text-copied" v-if="showTextCopied">Copied!</span>
 				</div>
 			</div>
 		</div>
@@ -57,6 +62,25 @@ function goToBack() {
 	this.$store.dispatch('resetDetail');
 }
 
+function shareFriend() {
+	const cb = document.getElementById('share');
+	cb.value = `name: ${this.detail.name}, stats: ${this.detail.statsString}`;
+	cb.style.display = 'block';
+	cb.select();
+	document.execCommand('copy');
+	cb.style.display = 'none';
+	this.showTextCopied = true,
+	setInterval(() => {
+		this.showTextCopied = false;
+	}, 1000);
+}
+
+function data() {
+	return {
+		showTextCopied: false,
+	};
+}
+
 export default {
   components: { AppButton, BtnStart, Loading },
 	name: 'detail',
@@ -67,11 +91,13 @@ export default {
 			'loading',
 		]),
 	},
+	data,
 	props: {
 		name: String,
 	},
 	methods: {
 		goToBack,
+		shareFriend,
 	},
 };
 </script>
@@ -122,6 +148,7 @@ export default {
 		@include flex-between();
 		margin-top: 20px;
 		padding: 0 30px;
+		position: relative;
 	}
 
 	&__btn {
@@ -137,6 +164,13 @@ export default {
 		bottom: 0;
 		position: absolute;
 		right: calc(50% - 53px);
+	}
+
+	&__text-copied {
+		color: $primary;
+		font-size: 13px;
+		position: absolute;
+		top: -26px;
 	}
 }
 </style>

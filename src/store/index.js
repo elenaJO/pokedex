@@ -41,7 +41,6 @@ const store = new Vuex.Store(
 			},
 			async getDetailPok(context, { name, favorite }) {
 				context.commit('setLoading', true);
-				console.log('haoooo');
 				const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
 				const resp = await fetch(url);
 				const data = await resp.json();
@@ -86,10 +85,11 @@ const store = new Vuex.Store(
 				state.list[indexD].favorite = !state.list[indexD].favorite;
 			},
 			setDetailPok(state, { data, favorite }) {
-				console.log('haha');
 				state.detail = { ... data };
 				state.detail.favorite = Boolean(favorite);
 				state.detail.image = data.sprites.front_default;
+				state.detail.typesString = data.types.map(t => t.type.name).toString();
+				state.detail.statsString = data.stats.map(t => t.stat.name).toString();
 				//Para mostrar el efecto del loading
 				setTimeout(() => {
 					state.loading = false;
