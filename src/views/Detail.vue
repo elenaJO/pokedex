@@ -1,36 +1,39 @@
 <template>
   <div class="detail">
 		<div class="detail__modal">
-			<div class="detail__content-image">
-				<button class="detail__btn" @click="goToBack">
-					<img src="../assets/icons/check.svg" alt="cerrar">
-				</button>
-				<img 
-					:src="detail.image" 
-					:alt="detail.name"
-					width="106px"
-					class="detail__image"
-				>
-			</div>
-			<div class="detail__content-information">
-				<div>
-					<p class="detail__text">
-						<span class="detail__text--bold">Name:</span> {{ detail ? detail.name : ''}}
-					</p>
-					<p class="detail__text">
-						<span class="detail__text--bold">Weight:</span> {{ detail ? detail.weight : ''}}
-					</p>
-					<p class="detail__text">
-						<span class="detail__text--bold">Height:</span> {{ detail ? detail.height : ''}}
-					</p>
-					<p class="detail__text">
-						<span class="detail__text--bold">Types:</span> {{ detail ? detail.name : ''}}
-					</p>
+			<Loading v-if="loading"/>
+			<div v-else>
+				<div class="detail__content-image">
+					<button class="detail__btn" @click="goToBack">
+						<img src="../assets/icons/check.svg" alt="cerrar">
+					</button>
+					<img 
+						:src="detail.image" 
+						:alt="detail.name"
+						width="106px"
+						class="detail__image"
+					>
 				</div>
-			</div>
-			<div class="detail__content-buttons">
-				<AppButton title="Share to my friends"/>
-				<BtnStart :active="detail.favorite"/>
+				<div class="detail__content-information">
+					<div>
+						<p class="detail__text">
+							<span class="detail__text--bold">Name:</span> {{ detail ? detail.name : ''}}
+						</p>
+						<p class="detail__text">
+							<span class="detail__text--bold">Weight:</span> {{ detail ? detail.weight : ''}}
+						</p>
+						<p class="detail__text">
+							<span class="detail__text--bold">Height:</span> {{ detail ? detail.height : ''}}
+						</p>
+						<p class="detail__text">
+							<span class="detail__text--bold">Types:</span> {{ detail ? detail.name : ''}}
+						</p>
+					</div>
+				</div>
+				<div class="detail__content-buttons">
+					<AppButton title="Share to my friends"/>
+					<BtnStart :active="detail.favorite"/>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -39,6 +42,7 @@
 import AppButton from '../components/shared/AppButton.vue';
 import BtnStart from '../components/shared/BtnStart.vue';
 import { mapGetters } from 'vuex';
+import Loading from '../components/loading/Loading.vue';
 
 function created() {
 	const detail = {
@@ -54,12 +58,13 @@ function goToBack() {
 }
 
 export default {
-  components: { AppButton, BtnStart },
+  components: { AppButton, BtnStart, Loading },
 	name: 'detail',
 	created,
 	computed: {
 		...mapGetters([
 			'detail',
+			'loading',
 		]),
 	},
 	props: {

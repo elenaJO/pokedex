@@ -4,7 +4,8 @@
 			<AppSearch 
 				@change-text="changeText"
 			/>
-			<div class="list__content-card">
+			<Loading v-if="loading && this.$route.name !== 'Detail'"/>
+			<div class="list__content-card" v-else>
 				<template v-if="showList.length">
 					<AppList 
 						v-for="(item, index) in showList" 
@@ -51,6 +52,7 @@ import AppList from '../components/shared/AppList.vue';
 import AppSearch from '../components/shared/AppSearch.vue';
 import { mapGetters } from 'vuex';
 import ListNotFound from '../components/list/ListNotFound.vue';
+import Loading from '../components/loading/Loading.vue';
 
 function created() {
 	this.$store.dispatch('getListPok');
@@ -117,7 +119,7 @@ function data() {
 }
 
 export default {
-  components: { AppSearch, AppButton, AppList, ListNotFound },
+  components: { AppSearch, AppButton, AppList, ListNotFound, Loading },
 	name: 'List',
 	data,
 	created,
@@ -125,6 +127,7 @@ export default {
 		...mapGetters([
 			'list',
 			'favorites',
+			'loading',
 		]),
 		showList,
 	},

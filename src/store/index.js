@@ -9,6 +9,7 @@ const store = new Vuex.Store(
 			list: [],
 			favorites: [],
 			detail: {},
+			loading: false,
 		},
 		getters: {
 			list(state) {
@@ -20,10 +21,14 @@ const store = new Vuex.Store(
 			detail(state) {
 				return state.detail
 			},
+			loading(state) {
+				return state.loading
+			}
 		},
 		actions: {
 			async getListPok(context) {
 				const url = 'https://pokeapi.co/api/v2/pokemon';
+				context.commit('setLoading', true);
 				const resp = await fetch(url);
 				const data = await resp.json();
 				context.commit('setList', data.results);
@@ -35,14 +40,17 @@ const store = new Vuex.Store(
 				context.commit('setPokDeleteFav', index);
 			},
 			async getDetailPok(context, { name, favorite }) {
+				context.commit('setLoading', true);
+				console.log('haoooo');
 				const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
 				const resp = await fetch(url);
 				const data = await resp.json();
 				context.commit('setDetailPok', { data, favorite });
 			},
 			resetDetail(context) {
+				context.commit('setLoading', false);
 				context.commit('setResetDetail');
-			}
+			},
 		},
 		mutations: {
 			setList(state, items) {
@@ -57,6 +65,10 @@ const store = new Vuex.Store(
 					return newItem;
 				});
 				state.list = itemsNew;
+				state.loading = false;
+				// setTimeout(() => {
+				// 	state.loading = false;
+				// }, 3000);
 			},
 			setPokFav(state, index) {
 				state.list[index].favorite = !state.list[index].favorite;
@@ -74,12 +86,20 @@ const store = new Vuex.Store(
 				state.list[indexD].favorite = !state.list[indexD].favorite;
 			},
 			setDetailPok(state, { data, favorite }) {
+				console.log('haha');
 				state.detail = { ... data };
 				state.detail.favorite = Boolean(favorite);
 				state.detail.image = data.sprites.front_default;
+				//Para mostrar el efecto del loading
+				setTimeout(() => {
+					state.loading = false;
+				}, 1000);
 			},
 			setResetDetail(state) {
 				state.detail = {};
+			},
+			setLoading(state, value) {
+				state.loading = value;
 			}
 		}
 	},
