@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
 		<div class="detail__modal">
-			<Loading v-if="loading"/>
+			<Loading v-if="loading" :modal="true"/>
 			<div v-else>
 				<div class="detail__content-image">
 					<button class="detail__btn" @click="goToBack">

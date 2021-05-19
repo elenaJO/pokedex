@@ -160,6 +160,7 @@ export default {
 			padding: 18px 30px;
 			position: fixed;
 			left: 0;
+			text-align: center;
 			right: 0;
 		}
 
