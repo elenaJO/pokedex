@@ -1,16 +1,23 @@
 <template>
 	<div>
 		<div class="list">
-			<AppSearch/>
+			<AppSearch 
+				@change-text="changeText"
+			/>
 			<div class="list__content-card">
-				<AppList 
-					v-for="(item, index) in showList" 
-					:key="item.name"
-					:detail="item"
-					class="mb-10"
-					@click-detail="saveFavorite(index)"
-					@click-list="showDetail"
-				/>
+				<template v-if="showList.length">
+					<AppList 
+						v-for="(item, index) in showList" 
+						:key="item.name"
+						:detail="item"
+						class="mb-10"
+						@click-detail="saveFavorite(index)"
+						@click-list="showDetail"
+					/>
+				</template>
+				<ListNotFound
+					v-else 
+					title="Go back home"/>
 			</div>
 			<div class="list__content-options">
 				<AppButton 
@@ -43,6 +50,7 @@ import AppButton from '../components/shared/AppButton.vue';
 import AppList from '../components/shared/AppList.vue';
 import AppSearch from '../components/shared/AppSearch.vue';
 import { mapGetters } from 'vuex';
+import ListNotFound from '../components/list/ListNotFound.vue';
 
 function created() {
 	this.$store.dispatch('getListPok');
@@ -54,10 +62,6 @@ function saveFavorite(index) {
 	} else {
 		this.$store.dispatch('getPokFavorite', index);
 	}
-}
-
-function showList() {
-	return this.$route.name === 'ListFavorite' ? this.favorites : this.list;
 }
 
 function goToFavorites() {
@@ -73,9 +77,13 @@ function goToAll() {
 }
 
 function changeShow(values) {
-	if (this.$route.name === 'ListFavorite' && values.length === 0) {
+	if (this.$route.name === 'ListFavorite' && !values.length && !this.textSearch.length) {
 		this.goToAll();
 	}
+}
+
+function changeText($event) {
+	this.textSearch = $event.target.value;
 }
 
 function showDetail(detail) {
@@ -90,9 +98,28 @@ function showDetail(detail) {
 	});
 }
 
+function showList() {
+	const listShowPage = this.$route.name === 'ListFavorite' ? this.favorites : this.list;
+	if (this.textSearch.length) {
+		const newList = listShowPage.filter(p =>
+			p.name.toLowerCase().indexOf(this.textSearch.toLowerCase()) > -1);
+		return newList;
+	}
+	return listShowPage;
+}
+
+function data() {
+	return {
+		searchList: [],
+		flagSearh: false,
+		textSearch: '',
+	};
+}
+
 export default {
-  components: { AppSearch, AppButton, AppList },
+  components: { AppSearch, AppButton, AppList, ListNotFound },
 	name: 'List',
+	data,
 	created,
 	computed: {
 		...mapGetters([
@@ -106,6 +133,7 @@ export default {
 		goToFavorites,
 		goToAll,
 		showDetail,
+		changeText,
 	},
 	watch: {
 		showList: changeShow,

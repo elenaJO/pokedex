@@ -9,6 +9,7 @@
 			type="text"
 			placeholder="Search"
 			class="app-search__text"
+			@input="$emit('change-text', $event)"
 		>
 	</div>
 </template>
