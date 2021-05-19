@@ -19,7 +19,7 @@ Las actividades principales son:
 -  Instalación y configurarción de `Vuex` [#20](https://github.com/elenaJO/pokedex/issues/20)
 -  Consumo de la Api pokeapi para listar los pokemones [#22](https://github.com/elenaJO/pokedex/issues/22)
 -  Implementación de favoritos, donde se guardo la información en el store [#24](https://github.com/elenaJO/pokedex/issues/24)
--  Implementación de detalle donde se consumio el Api, la infomarción se guardo en el store y se agrego un setTimeout para mostrar el efecto loading [#26](https://github.com/elenaJO/pokedex/issues/26)
+-  Implementación de detalle (`para ver el detalle hacer clic en el nombre lo considere asi ya que hay otra acción para favoritos en la misma tarjeta` )donde se consumio el Api, la infomarción se guardo en el store y se agrego un setTimeout para mostrar el efecto loading [#26](https://github.com/elenaJO/pokedex/issues/26), 
 -  Implementación de buscar porkemon donde se hizo de forma local y el la función de compartir con los amigos [#32](https://github.com/elenaJO/pokedex/issues/32), [#28](https://github.com/elenaJO/pokedex/issues/28)
 -  y al finalizar se hizo la versión desktop [#35](https://github.com/elenaJO/pokedex/issues/35)
 
