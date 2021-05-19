@@ -48,7 +48,12 @@ const store = new Vuex.Store(
 			setList(state, items) {
 				const itemsNew = items.map((i) => {
 					const newItem = { ...i };
-					newItem.favorite = false;
+					if (state.favorites.length) {
+						const indexF = state.favorites.findIndex(f => f.name === i.name);
+						newItem.favorite = indexF > -1;
+					} else {
+						newItem.favorite = false;
+					}
 					return newItem;
 				});
 				state.list = itemsNew;
