@@ -32,4 +32,4 @@ Para correr la web hacer:
 
 ## COMENTARIOS
 
-El desarrollo de este reto fue muy satisfactorio ya que puede aplicar mis conocimientos en el framework, espero ser considerara para la siguiente etapa
+El desarrollo de este reto fue muy satisfactorio ya que puede aplicar mis conocimientos en el framework, espero ser considerara para la siguiente etapa.
